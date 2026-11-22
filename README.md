@@ -102,7 +102,7 @@ planificador-estudio/
 | Recurso | Estado |
 | --- | --- |
 | Código en GitHub | [Repositorio del proyecto](https://github.com/Asanvic/tfm-planificador-estudio) |
-| Presentación | En preparación; se incluirá en `docs/Presentacion_TFM.pptx`. |
+| Presentación | [Diapositivas del TFM](docs/Presentacion_TFM.pptx) |
 | Vídeo con explicación del autor | Pendiente de grabación. Su enlace público se añadirá antes de la entrega. |
 
 La aplicación se entrega para ejecución local. El formulario del centro permite dejar el enlace de despliegue vacío cuando no existe.
