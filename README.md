@@ -77,7 +77,8 @@ planificador-estudio/
 │   ├── plan.js
 │   └── style.css
 └── docs/
-    └── Presentacion_TFM.pptx
+    ├── Presentacion_TFM.pptx
+    └── TFM_FINAL.mp4
 ```
 
 | Archivo | Responsabilidad |
@@ -103,6 +104,6 @@ planificador-estudio/
 | --- | --- |
 | Código en GitHub | [Repositorio del proyecto](https://github.com/Asanvic/tfm-planificador-estudio) |
 | Presentación | [Diapositivas del TFM](docs/Presentacion_TFM.pptx) |
-| Vídeo con explicación del autor | Pendiente de grabación. Su enlace público se añadirá antes de la entrega. |
+| Vídeo con explicación del autor | [Ver o descargar el vídeo del TFM](https://github.com/Asanvic/tfm-planificador-estudio/raw/refs/heads/main/docs/TFM_FINAL.mp4) |
 
 La aplicación se entrega para ejecución local. El formulario del centro permite dejar el enlace de despliegue vacío cuando no existe.
