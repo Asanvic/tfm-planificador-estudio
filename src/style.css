@@ -1,0 +1,146 @@
+* {box-sizing:border-box}
+:root {font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172f30;background:#f3f4ef;accent-color:#096454}
+body {margin:0}
+main {max-width:1680px;margin:auto;padding:18px clamp(12px,2vw,32px)}
+header,.actions,.calbar,.calbar nav,.switch {display:flex;align-items:center;gap:8px}
+header {justify-content:space-between;margin-bottom:16px;flex-wrap:wrap}
+h1,h2,p {margin:0}
+h1 {font:600 clamp(25px,3vw,40px)/1.1 Georgia,serif;letter-spacing:-.035em}
+h2 {font-size:18px}
+button,input,select {font:inherit;font-size:13px;color:inherit;background:white;border:1px solid #bacac4;border-radius:5px;padding:5px 7px;min-width:0}
+button {cursor:pointer;font-weight:600}
+button:hover {background:#eef4f0}
+button:focus-visible,input:focus-visible,select:focus-visible {outline:2px solid #1e7464;outline-offset:1px}
+.workspace {display:grid;grid-template-columns:clamp(350px,28vw,400px) minmax(0,1fr);gap:14px;align-items:start}
+.workspace.calendar-only {grid-template-columns:minmax(0,1fr)}
+#editor,#result {min-width:0;background:white;border:1px solid #d2ddd6;border-radius:10px;padding:14px}
+#editor section+section {margin-top:14px;padding-top:12px;border-top:1px solid #dce4df}
+.scroll {overflow:auto;max-height:clamp(178px,33vh,380px);margin:4px 0 8px}
+table {width:100%;border-collapse:collapse}
+th,td {text-align:left}
+#syllabus table {table-layout:fixed}
+#syllabus th {position:sticky;top:0;background:white;font-size:11px;color:#476055;z-index:1}
+#syllabus th,#syllabus td {padding:2px}
+#syllabus th:nth-child(2) {width:49px}
+#syllabus th:nth-child(3) {width:78px}
+#syllabus th:last-child {width:26px}
+#syllabus td input,#syllabus td select {display:block;width:100%;padding:4px}
+[data-drop],[data-remove] {width:24px;padding:2px;color:#52665d;font-size:17px;line-height:1.15}
+.settings {display:grid;grid-template-columns:1.4fr 1fr;gap:8px;margin:8px 0}
+.settings label,.labels {font-size:12px;color:#496154}
+.settings input {display:block;width:100%;margin-top:2px}
+.slot {display:grid;grid-template-columns:minmax(105px,1.5fr) minmax(80px,1fr) minmax(44px,.6fr) 24px;gap:4px;align-items:center;margin:4px 0}
+.slot-note {grid-column:1/-1;font-size:12px;color:#854618}
+.slot-note:empty {display:none}
+.slot input[aria-invalid="true"] {border-color:#a46134}
+.slot input {width:100%;padding:4px 2px}
+#add {margin-top:4px}
+.calculate {margin-top:14px;display:grid;gap:5px}
+#calculate {background:#175b4e;color:white;font-size:15px;padding:8px}
+#hint,footer,#summary {font-size:13px;color:#526765}
+#hint:empty,footer:empty {display:none}
+footer {margin-top:8px}
+.calbar {flex-wrap:wrap;gap:8px 14px}
+.calbar h2 {margin-right:auto}
+.calbar nav b {min-width:8em;text-align:center;font-size:13px}
+.switch {gap:2px}
+.switch button[aria-pressed=true] {background:#175b4e;color:white}
+.calbar button:disabled {opacity:.4;cursor:default}
+#result {display:flex;flex-direction:column;align-self:stretch}
+.calendar-info {display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+#weekZoom:not([hidden]) {display:flex;align-items:center;gap:5px;margin-left:auto}
+#weekZoom button {width:30px;height:27px;line-height:1;padding:2px}
+#weekZoom button:disabled {opacity:.4;cursor:default}
+#zoomLevel {min-width:4ch;font-size:12px;text-align:center;font-variant-numeric:tabular-nums}
+@media(max-width:820px) {
+  .workspace {grid-template-columns:minmax(0,1fr)}
+  header {gap:8px}
+}
+@media(max-width:420px) {
+  main {padding:10px 6px}
+  #editor,#result {padding:9px}
+}
+#days {overflow:auto;flex:1 1 0;min-height:clamp(340px,56vh,580px)}
+#days small {display:block;color:inherit;font-size:12px}
+#days .muted {color:#798781;background:#f4f5f2}
+.monthgrid {min-height:100%;display:grid;grid-template-rows:auto;grid-auto-rows:minmax(64px,1fr);grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.weekday {padding:5px;font-size:13px;color:#526765}
+.monthgrid button,.monthgrid div {min-height:64px;border-radius:5px;text-align:left;padding:7px;border:1px solid #e2e7e3;font-weight:normal}
+.monthgrid button {display:flex;flex-direction:column;align-items:flex-start}
+.monthgrid .available,.weekgrid .free {border:1px dashed #82998d}
+.monthgrid .assigned,.weekgrid .booked {background:#deeee5;border:1px solid #9cbfab}
+.exam {font-weight:bold;color:#62440e}
+.week-scroll {overflow-anchor:none;border:1px solid #d5deda;border-radius:6px;overscroll-behavior:contain}
+.weekgrid {min-width:730px;table-layout:fixed;border-collapse:separate;border-spacing:0}
+.weekgrid th,.weekgrid td {padding:0;vertical-align:top;overflow-wrap:anywhere;border:0;border-right:1px solid #e1e7e4}
+.weekgrid thead th {position:sticky;top:0;z-index:2;background:#fff;padding:8px 4px;border-bottom:1px solid #b7c7c0}
+.weekgrid thead .chosen-day {background:#175b4e;color:white}
+.weekgrid .chosen-slot div {border-left:3px solid #175b4e}
+.weekgrid th:first-child {width:55px}
+.weekgrid tbody th {position:sticky;left:0;z-index:1;background:white;font-size:12px;font-weight:500;text-align:center}
+.weekgrid .hour>* {border-top:1px solid #d8e0dc}
+.weekgrid td {background:white}
+.weekgrid td.working-hours {background:#edf2ef}
+.weekgrid .study {padding:1px}
+.weekgrid .study div {height:100%;padding:2px 4px;border-radius:4px;font-size:12px;line-height:1.2}
+.weekgrid .free {background:white}
+.weekgrid .study strong {display:block;font-weight:650}
+#days .study small {font-size:10px;color:#53685e}
+
+@media(max-width:600px){.monthgrid{gap:1px}.monthgrid button,.monthgrid div{padding:3px}.monthgrid small{line-height:1.2}.weekday{padding:3px}}
+
+.forecast {
+  display:grid; grid-column:-2 / -1; grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px; min-width:0;
+}
+.forecast-message {font-size:13px;color:#52665c}
+.forecast-message:empty,.forecast.awaiting-plan .coverage-body,.forecast.awaiting-plan #lessonCoverage,.forecast.awaiting-plan .trend-chart {display:none}
+.forecast-card {min-width:0; padding:12px 14px; background:#fafbf8; border:1px solid #d6e1da; border-radius:8px}
+.forecast-card h3 {margin:0 0 12px; font-size:14px}
+.trend-chart {display:grid; grid-template-columns:auto 1fr; gap:6px 8px; align-items:stretch}
+.scale {display:flex; flex-direction:column; justify-content:space-between; text-align:right}
+.scale,.date-axis,.ring small {font-size:11px; color:#50665c}
+#trend {width:100%;height:86px;align-self:center;overflow:visible}
+.guides,.trend-line {fill:none;vector-effect:non-scaling-stroke}
+.guides {stroke:#cbd7cf;stroke-dasharray:3 4}
+.trend-area {fill:#a6d6bd;fill-opacity:.35}
+.trend-line {stroke:#196950;stroke-width:2.5;stroke-linejoin:round}
+.date-axis {grid-column:2; display:flex; justify-content:space-between;gap:8px}
+.coverage-body {display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.ring {width:84px;height:84px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#196950 var(--coverage),#d9e2dc 0)}
+.ring div {width:66px;height:66px;border-radius:50%;background:#fafbf8;display:grid;align-content:center;text-align:center}
+.ring strong {font-size:16px;line-height:1.2}
+@media(max-width:580px) {
+  .forecast {grid-template-columns:1fr}
+}
+
+/* Leave space for seven day columns before placing the forecast beside them. */
+@media(min-width:1200px) {
+  .workspace:has(.forecast:not([hidden])) {
+    grid-template-columns:clamp(320px,24vw,380px) minmax(0,1fr) clamp(204px,16vw,260px);
+  }
+  .workspace.calendar-only:has(.forecast:not([hidden])) {
+    grid-template-columns:minmax(0,1fr) clamp(204px,18vw,280px);
+  }
+  .forecast {
+    grid-column:auto; grid-template-columns:minmax(0,1fr);
+    grid-template-rows:auto minmax(180px,1fr); align-self:stretch;
+  }
+  .forecast-card {display:flex;flex-direction:column; padding:14px; background:white}
+  .forecast-card h3 {font-size:16px}
+  .coverage-body {align-content:center;justify-content:center;gap:12px}
+  .trend-chart {margin:auto 0}
+  #trend {height:clamp(100px,16vh,180px)}
+  .weekgrid {min-width:570px}
+  .weekgrid th:first-child {width:46px}
+  #editor,#result {align-self:stretch}
+}
+@media(min-width:821px) and (max-width:1199px) {
+  .workspace:has(.forecast:not([hidden])) #editor {grid-row:span 2}
+}
+
+.coverage-key {font-size:12px;color:#466359;max-width:12ch}
+#lessonCoverage {list-style:none;padding:0;margin:12px 0 0}
+#lessonCoverage li {display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:4px 0;border-top:1px solid #dce5df;font-size:13px}
+#lessonCoverage span {overflow-wrap:anywhere}
+#lessonCoverage strong {white-space:nowrap;font-variant-numeric:tabular-nums}

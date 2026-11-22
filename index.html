@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Planificador de estudio</title>
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+<main>
+  <header>
+    <h1>Planificador de estudio</h1>
+    <div class="actions">
+      <button id="toggleEditor" aria-controls="editor" aria-expanded="true">Ocultar temario</button>
+    </div>
+  </header>
+  <div class="workspace" id="workspace">
+    <aside id="editor" aria-label="Temario y disponibilidad">
+      <section id="syllabus">
+        <h2>¿Qué tengo que estudiar?</h2>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>Lección</th><th>Temas</th><th>Prioridad</th><th aria-label="Acciones"></th></tr></thead>
+            <tbody id="lessons"></tbody>
+          </table>
+        </div>
+        <button id="addLesson">+ Añadir lección</button>
+      </section>
+      <section>
+        <h2>¿Cuándo puedo estudiar?</h2>
+        <div class="settings">
+          <label>Fecha del examen<input id="deadline" type="date" required></label>
+          <label>Minutos por tema<input id="pace" type="number" min="1" max="1440" required></label>
+        </div>
+        <div class="slot labels" aria-hidden="true"><span>Día</span><span>Inicio</span><span>Minutos</span></div>
+        <div id="sessions"></div>
+        <button id="add">+ Añadir hueco de estudio</button>
+      </section>
+      <div class="calculate">
+        <button id="calculate">Calcular mi plan</button>
+        <span id="hint" role="status"></span>
+      </div>
+    </aside>
+    <section id="result">
+      <div class="calbar">
+        <h2 tabindex="-1" id="resultTitle">Mi calendario</h2>
+        <div class="switch" role="group" aria-label="Vista del calendario"><button id="week">Semana</button><button id="month">Mes</button></div>
+        <nav aria-label="Periodo del calendario"><button id="previous" aria-label="Periodo anterior">‹</button><b id="period" aria-live="polite"></b><button id="next" aria-label="Periodo siguiente">›</button></nav>
+      </div>
+      <div class="calendar-info">
+        <p id="summary" aria-live="polite"></p>
+        <div id="weekZoom" role="group" aria-label="Zoom horario" hidden>
+          <button id="zoomOut" aria-label="Alejar para ver más horas" title="Ver más horas">−</button>
+          <output id="zoomLevel" aria-label="Zoom horario"></output>
+          <button id="zoomIn" aria-label="Acercar para ver menos horas" title="Ver menos horas">+</button>
+        </div>
+      </div>
+      <div id="days"></div>
+    </section>
+    <aside id="forecast" class="forecast" aria-label="Previsión de estudio">
+      <section class="forecast-card" aria-labelledby="coverageTitle">
+        <h3 id="coverageTitle">Cobertura del temario</h3>
+        <p class="forecast-message"></p>
+        <div class="coverage-body">
+          <div class="ring" id="coverageRing" aria-hidden="true"><div><strong id="percent"></strong><small>previsto</small></div></div>
+          <p class="coverage-key" id="coveredCount"></p>
+        </div>
+        <ul id="lessonCoverage" aria-label="Porcentaje programado por lección"></ul>
+      </section>
+      <section class="forecast-card" aria-labelledby="trendTitle">
+        <h3 id="trendTitle">Avance previsto hasta el examen</h3>
+        <p class="forecast-message"></p>
+        <div class="trend-chart">
+          <div class="scale" aria-hidden="true"><span>100 %</span><span>50 %</span><span>0 %</span></div>
+          <svg id="trend" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-labelledby="trendDescription">
+            <title id="trendDescription"></title>
+            <path class="guides" d="M0 0 H100 M0 50 H100 M0 100 H100"/>
+            <path id="trendArea" class="trend-area"/>
+            <path id="trendLine" class="trend-line"/>
+          </svg>
+          <div class="date-axis"><span id="fromDate"></span><span id="toDate"></span></div>
+        </div>
+      </section>
+    </aside>
+  </div>
+  <footer id="storage" role="status"></footer>
+</main>
+<script src="src/plan.js"></script><script src="src/calendar.js"></script><script src="src/forecast.js"></script><script src="src/app.js"></script>
+</body></html>
